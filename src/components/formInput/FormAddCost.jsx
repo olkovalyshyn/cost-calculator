@@ -1,27 +1,33 @@
-import {Formik, Form} from 'formik';
-import {useEffect} from "react";
+import {Formik, Form, useField, useFormikContext} from 'formik';
+import {object, string} from 'yup'
+import InputDate from "./InputDate";
+import InputCost from "./InputCost.jsx";
+import InputCategory from "./InputCategory.jsx";
+
+
+const formAddCostSchema = object().shape({
+    category: string().required("Поле обов'язкове для заповнення"),
+    cost: string().matches(/^\d+(\.\d{1,2})?$/, 'Сума витрат має бути числом з максимум двома десятковими знаками')
+        .required("Поле обов'язкове для заповнення"),
+})
 
 const submitFormAddCost = () => {
-    console.log("### Треба внести в базу")
+    console.log("### Сабміт успішний.  Треба внести в базу")
 }
-export default function AddCost() {
-
-    useEffect(()=>{
-        const currentDate = new Date().toISOString().split('T')[0];
-        const dateInput = document.getElementById('date');
-        dateInput.value = currentDate;
-    },[])
+export default function FormAddCost() {
 
     return (
         <div>
             <h2>Додати витрату</h2>
             <Formik
-                initialValues={{category: "", cost: ""}}
-                onSubmit={submitFormAddCost}
+                initialValues={{category: "", cost: "", date: new Date()}}
+                onSubmit={(values) => {
+                    console.log("### ТУТ САБМІТ", values)
+                }}
+                validationSchema={formAddCostSchema}
             >
                 <Form>
-                    <label htmlFor="category"> Введіть категорію витрат:</label>
-                    <select name="category" id="category" >
+                    <InputCategory label="Введіть категорію витрат:" name="category">
                         <option value="">Виберіть позицію</option>
                         <option value="Їжа та продукти">Їжа та продукти</option>
                         <option value="Плата за житло">Плата за житло</option>
@@ -35,17 +41,18 @@ export default function AddCost() {
                         <option value="Спорт і фітнес">Спорт і фітнес</option>
                         <option value="Витрати на дітей">Витрати на дітей</option>
                         <option value="Інші витрати">Інші витрати</option>
-                    </select>
+                    </InputCategory>
 
-                    <label htmlFor="cost"> Введіть суму витрат (грн.):</label>
-                    <input type="text" name="cost" id="cost"/>
+                    <InputCost
+                        label="Введіть суму витрат (грн.):"
+                        name="cost"
+                        type="text"
+                    />
 
-                    <label htmlFor="date"> Введіть дату витрат:</label>
-                    <input type="date" name="date" id="date"/>
+                    <InputDate name="date"/>
 
-                    <button type="submit">Підтвердити</button>
+                    <button type="submit">Записати</button>
                 </Form>
-
             </Formik>
         </div>
     )
