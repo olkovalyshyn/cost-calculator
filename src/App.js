@@ -1,8 +1,9 @@
-import FormAddCost from "./components/formInput/FormAddCost.jsx";
+import FormAddCost from './components/formInput/FormAddCost.jsx';
+
 function App() {
   return (
-    <div >
-        < FormAddCost />
+    <div>
+      <FormAddCost />
     </div>
   );
 }
