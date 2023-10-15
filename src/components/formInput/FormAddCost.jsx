@@ -1,18 +1,9 @@
 import axios from 'axios';
-import { Formik, Form, useField, useFormikContext } from 'formik';
+import { Formik, Form} from 'formik';
 import { object, string } from 'yup';
 import InputDate from './InputDate';
 import InputCost from './InputCost.jsx';
 import InputCategory from './InputCategory.jsx';
-// import insertDataToDatabase from "../../db/dbInsert.jsx";
-
-// insertDataToDatabase(category, cost, date, (error, results) => {
-//     if (error) {
-//         console.error('Помилка під час виконання SQL запиту:', error);
-//     } else {
-//         console.log('Дані були успішно записані:', results);
-//     }
-// });
 
 export default function FormAddCost() {
   const formAddCostSchema = object().shape({
@@ -25,22 +16,20 @@ export default function FormAddCost() {
       .required("Поле обов'язкове для заповнення"),
   });
 
-  const submitFormAddCost = async values => {
+  const submitFormAddCost = async (values, { resetForm }) => {
     try {
       console.log('### Сабміт успішний.  Треба внести в базу!!!', values);
       const response = await axios.post('/api/add-cost', values);
-      console.log('### response.data in submitFormAddCost', response.data); // Обробка відповіді з сервера
+      console.log('### response.data in submitFormAddCost', response.data);
+      resetForm();
     } catch (error) {
       console.log('### error in submitFormAddCost!', error);
     }
-    // const { category, cost, date } = value;
-
-    // insertDataToDatabase()
   };
 
   return (
     <div>
-      <h2>Додати витрату</h2>
+      <h2>Додати витрату:</h2>
       <Formik
         initialValues={{ category: '', cost: '', date: new Date() }}
         onSubmit={submitFormAddCost}
@@ -75,7 +64,7 @@ export default function FormAddCost() {
             type="text"
           />
 
-          <InputDate name="date" />
+          <InputDate name="date" label="Виберіть дату витрати:" />
 
           <button type="submit">Записати</button>
         </Form>
