@@ -129,6 +129,51 @@ app.post('/api/get-cost-period', async (req, res) => {
   }
 });
 
+app.post('/api/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    console.log('### email in Server', email);
+    console.log('### password in Server', password);
+
+    const conn = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 'cost-calc',
+    });
+
+    conn.connect(error => {
+      if (error) {
+        console.log("### error in app.post('/api/login!", error);
+      } else {
+        console.log('###DATABASE ------ CONNECTION IS SUCСESSFUL');
+      }
+    });
+
+    const sql = `SELECT * FROM users WHERE email = ? AND password = ?`;
+
+    conn.query(sql, [email, password], (error, results) => {
+      if (error) {
+        console.error('### Помилка під час виконання SQL запиту:', error);
+      } else {
+        console.log('### Дані були успішно ОТРИМАНІ ІЗ БАЗИ ДАНИХ:', results);
+      }
+      res.json(results);
+    });
+
+    conn.end(error => {
+      if (error) {
+        console.log('### error on Server!', error);
+      } else {
+        console.log('### DATABASE ------ CLOSE');
+      }
+    });
+  } catch (error) {
+    console.log('### err in Server', error);
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`### Сервер запущено на порті ${PORT} `);
 });
