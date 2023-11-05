@@ -1,16 +1,20 @@
 import axios from 'axios';
 import { Form, Formik } from 'formik';
+import { useSelector, useDispatch } from 'react-redux'
 import InputCost from '../formInput/InputCost';
+import { APIURL } from "../../helpers/constants.js";
+import { setUserInStore } from '../../store/sliceUser.js';
 
 export default function FormLogin() {
-  // const submitFormLogin = data => {
-  // console.log("### data in Submit Login", data)
-  // }
+const dispatch = useDispatch()
+  const storeFull = useSelector(state => state)
+console.log("### storeFull", storeFull)
 
   const submitFormLogin = async (values, { resetForm }) => {
     try {
       console.log('### Сабміт успішний.  Треба подивитись в базі!!!', values);
-      const response = await axios.post('/api/login', values);
+      const response = await axios.post(`${APIURL}/api/login`, values);
+      dispatch(setUserInStore(response.data[0]));
       console.log('### response in submitFormLogin', response);
       console.log('### response.data in submitFormLogin', response.data);
 

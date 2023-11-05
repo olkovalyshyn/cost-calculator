@@ -1,12 +1,15 @@
 import express from 'express';
 import path from 'path';
 import mysql from 'mysql';
+import cors from 'cors';
 
 import formatDate from '../helpers/formatDate.js';
 
 const PORT = process.env.PORT || 3001;
 const __dirname = path.resolve();
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'build')));

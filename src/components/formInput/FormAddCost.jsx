@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { Formik, Form} from 'formik';
+import { Formik, Form } from 'formik';
 import { object, string } from 'yup';
 import InputDate from './InputDate';
 import InputCost from './InputCost.jsx';
 import InputCategory from './InputCategory.jsx';
+import { useSelector } from 'react-redux';
 
 export default function FormAddCost() {
+  const storeFull = useSelector(state => state);
+  console.log('### storeFull in FormAddCost', storeFull);
+
   const formAddCostSchema = object().shape({
     category: string().required("Поле обов'язкове для заповнення"),
     cost: string()
