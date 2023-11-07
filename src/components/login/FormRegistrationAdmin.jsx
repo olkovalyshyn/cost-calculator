@@ -4,32 +4,33 @@ import { useSelector, useDispatch } from 'react-redux'
 import InputCost from '../formInput/InputCost';
 import { APIURL } from "../../helpers/constants.js";
 import { setUserInStore } from '../../store/sliceUser.js';
+import { Role } from '../../helpers/enum.js';
 
-export default function FormLogin() {
+export default function FormRegistrationAdmin() {
 const dispatch = useDispatch()
-  const storeFull = useSelector(state => state)
-console.log("### storeFull", storeFull)
+//   const storeFull = useSelector(state => state)
+// console.log("### storeFull", storeFull)
 
-  const submitFormLogin = async (values, { resetForm }) => {
+  const submitFormRegistrationAdmin = async (values, { resetForm }) => {
     try {
       console.log('### Сабміт успішний.  Треба подивитись в базі!!!', values);
-      const response = await axios.post(`${APIURL}/api/login`, values);
+      const response = await axios.post(`${APIURL}/api/registration-admin`, values);
       dispatch(setUserInStore(response.data[0]));
-      console.log('### response in submitFormLogin', response);
-      console.log('### response.data in submitFormLogin', response.data);
+      console.log('### response in FormRegistrationAdmin', response);
+      console.log('### response.data in FormRegistrationAdmin', response.data);
 
       resetForm();
     } catch (error) {
-      console.log('### error in submitFormLogin!', error);
+      console.log('### error in FormRegistrationAdmin!', error);
     }
   };
 
   return (
     <div>
-      <h2>Форма входу!!!:</h2>
+      <h2>Форма реєстрації адміністратора:</h2>
       <Formik
-        initialValues={{ email: '', password: '' }}
-        onSubmit={submitFormLogin}
+        initialValues={{ email: '', password: '', role: Role.ADMIN }}
+        onSubmit={submitFormRegistrationAdmin}
         // validationSchema={formLoginSchema}
       >
         <Form>
@@ -40,7 +41,7 @@ console.log("### storeFull", storeFull)
           />
           <InputCost label="Введіть пароль:" name="password" type="password" />
 
-          <button type="submit">Увійти</button>
+          <button type="submit">Зареєструвати адміністоатора</button>
         </Form>
       </Formik>
     </div>

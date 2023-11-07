@@ -5,6 +5,7 @@ import InputDate from './InputDate';
 import InputCost from './InputCost.jsx';
 import InputCategory from './InputCategory.jsx';
 import { useSelector } from 'react-redux';
+import { APIURL } from '../../helpers/constants.js';
 
 export default function FormAddCost() {
   const storeFull = useSelector(state => state);
@@ -23,7 +24,7 @@ export default function FormAddCost() {
   const submitFormAddCost = async (values, { resetForm }) => {
     try {
       console.log('### Сабміт успішний.  Треба внести в базу!!!', values);
-      const response = await axios.post('/api/add-cost', values);
+      const response = await axios.post(`${APIURL}/api/add-cost`, values);
       console.log('### response.data in submitFormAddCost', response.data);
       resetForm();
     } catch (error) {

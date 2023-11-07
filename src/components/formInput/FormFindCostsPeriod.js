@@ -2,6 +2,7 @@ import { Formik, Form } from 'formik';
 import axios from 'axios';
 import InputDate from './InputDate.jsx';
 import { useState } from 'react';
+import { APIURL } from '../../helpers/constants.js';
 
 export default function FormFindCostsPeriod() {
   const [costsTotal, setCostsTotal] = useState();
@@ -13,7 +14,10 @@ export default function FormFindCostsPeriod() {
         '### Сабміт FormFindCostsPeriod успішний.  Треба внести в базу!!!',
         values,
       );
-      const response = await axios.post('/api/get-cost-period', values);
+      const response = await axios.post(
+        `${APIURL}/api/get-cost-period`,
+        values,
+      );
       const costsSumm = response.data.reduce(
         (accumulator, currentValue) => accumulator + currentValue.cost,
         0,
