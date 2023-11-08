@@ -113,3 +113,25 @@ app.post('/api/get-admin', async (req, res) => {
     console.log('### err in Server', error);
   }
 });
+
+app.post('/api/registration-admin', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const conn = createDbConnection();
+
+    const sql = `INSERT INTO users (email, password, role) VALUES (?, ?, ?)`;
+    conn.query(sql, [email, password, Role.ADMIN], (error, results) => {
+      if (error) {
+        console.error('### Помилка під час виконання SQL запиту:', error);
+      } else {
+        console.log('### Дані були успішно записані в базу даних:', results);
+      }
+      res.json(results);
+    });
+
+    closeDbConnection(conn);
+  } catch (error) {
+    console.log('### err in Server', error);
+  }
+});

@@ -14,9 +14,9 @@ export default function FirstEnterForAdmin() {
         console.log('### ПЕРЕД АКСІОС ЗАПИТОМ FirstEnterForAdmin!');
 
         const response = await axios.post(`${APIURL}/api/get-admin`);
-        dispatch(setIsAdmin(response.data[0].role === Role.ADMIN));
+        dispatch(setIsAdmin(response.data[0]?.role === Role.ADMIN));
         console.log('### response in FirstEnterForAdmin!', response);
-        console.log('!!response.data[0].role', !!response.data[0].role);
+        console.log('!!response.data[0].role', !!response.data[0]?.role);
       } catch (error) {
         console.log('### error in FirstEnterForAdmin!', error);
       }
