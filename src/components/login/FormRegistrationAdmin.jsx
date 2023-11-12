@@ -1,19 +1,20 @@
 import axios from 'axios';
 import { Form, Formik } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import InputCost from '../formInput/InputCost';
 import { APIURL } from '../../helpers/constants.js';
 import {
   setIsShowChoiceBtnsForAdmin,
   setIsShowFormRegistrationAdmin,
+  setLoginBtnClick,
   setUserInStore,
 } from '../../store/sliceUser.js';
 import { Role } from '../../helpers/enum.js';
 import { useState } from 'react';
+import { notifyFailure, notifySuccess } from '../../helpers/notify';
 
 export default function FormRegistrationAdmin() {
   const dispatch = useDispatch();
-  const [isAdminRegistered, setIsAdminRegistered] = useState(false);
 
   const submitFormRegistrationAdmin = async (values, { resetForm }) => {
     try {
@@ -21,10 +22,6 @@ export default function FormRegistrationAdmin() {
       const response = await axios.post(
         `${APIURL}/api/registration-admin`,
         values,
-      );
-      console.log(
-        '### response BEFORE DISPATCH in FormRegistrationAdmin',
-        response,
       );
 
       dispatch(setUserInStore(response.data[0]));
@@ -34,8 +31,12 @@ export default function FormRegistrationAdmin() {
       resetForm();
       dispatch(setIsShowFormRegistrationAdmin(false));
       dispatch(setIsShowChoiceBtnsForAdmin(true));
+            dispatch(setLoginBtnClick(true));
+
+      notifySuccess();
     } catch (error) {
       console.log('### error in FormRegistrationAdmin!', error);
+      notifyFailure();
     }
   };
 
@@ -55,7 +56,7 @@ export default function FormRegistrationAdmin() {
           />
           <InputCost label="Введіть пароль:" name="password" type="password" />
 
-          <button type="submit">Зареєструвати адміністоатора</button>
+          <button type="submit" className="btn btn-success">Зареєструвати адміністратора</button>
         </Form>
       </Formik>
     </div>

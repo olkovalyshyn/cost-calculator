@@ -3,7 +3,11 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { APIURL } from '../../helpers/constants.js';
 import { Role } from '../../helpers/enum.js';
-import { resetToInitialState, setIsAdmin } from '../../store/sliceUser.js';
+import {
+  resetToInitialState,
+  setIsAdmin,
+  setUserInStore,
+} from '../../store/sliceUser.js';
 
 export default function FirstEnterForAdmin() {
   const dispatch = useDispatch();
@@ -21,6 +25,7 @@ export default function FirstEnterForAdmin() {
           '### response.data[0]?.role in FirstEnterForAdmin!',
           response.data[0]?.role,
         );
+        // dispatch(setUserInStore(response.data[0]));
         dispatch(setIsAdmin(response.data[0]?.role === Role.ADMIN));
         console.log('!!response.data[0].role', !!response.data[0]?.role);
       } catch (error) {

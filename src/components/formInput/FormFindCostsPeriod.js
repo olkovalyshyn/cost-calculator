@@ -44,11 +44,13 @@ export default function FormFindCostsPeriod() {
         onSubmit={submitFormFindCostsPeriod}
         // validationSchema={formFindCostsPeriodSchema}
       >
-        <Form>
+        <Form className="d-flex flex-column">
           <InputDate name="dateFrom" label="Виберіть початкову дату:" />
           <InputDate name="dateTo" label="Виберіть кінцеву дату:" />
 
-          <button type="submit">Отримати витрати</button>
+          <button type="submit" className="btn btn-success m-2">
+            Отримати витрати
+          </button>
         </Form>
       </Formik>
       {costsTotal && (

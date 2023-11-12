@@ -1,20 +1,17 @@
 import axios from 'axios';
 import { Form, Formik } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
 import InputCost from '../formInput/InputCost';
 import { APIURL } from '../../helpers/constants.js';
-import {
-  setIsShowChoiceBtnsForAdmin,
-  setIsShowFormRegistrationAdmin,
-  setUserInStore,
-} from '../../store/sliceUser.js';
 import { Role } from '../../helpers/enum.js';
-import { useState } from 'react';
 import InputCategory from '../formInput/InputCategory.jsx';
+import { notifyFailure, notifySuccess } from '../../helpers/notify';
+import { object, string } from 'yup';
 
 export default function FormRegistrationUser() {
-  const dispatch = useDispatch();
-  const [isAdminRegistered, setIsAdminRegistered] = useState(false);
+  const formRegistrationSchema = object().shape({
+    email: string().required("Поле обов'язкове для заповнення"),
+    password: string().required("Поле обов'язкове для заповнення"),
+  });
 
   const submitFormRegistrationUser = async (values, { resetForm }) => {
     try {
@@ -23,22 +20,10 @@ export default function FormRegistrationUser() {
         `${APIURL}/api/registration-user`,
         values,
       );
-      console.log(
-        '### response BEFORE DISPATCH in submitFormRegistrationUser',
-        response,
-      );
-
-      // dispatch(setUserInStore(response.data[0]));
-      console.log('### response in submitFormRegistrationUser', response);
-      console.log(
-        '### response.data in submitFormRegistrationUser',
-        response.data,
-      );
-
+      notifySuccess();
       resetForm();
-      //   dispatch(setIsShowFormRegistrationAdmin(false));
-      //   dispatch(setIsShowChoiceBtnsForAdmin(true));
     } catch (error) {
+      notifyFailure();
       console.log('### error in FormRegistrationUser!', error);
     }
   };
@@ -49,7 +34,7 @@ export default function FormRegistrationUser() {
       <Formik
         initialValues={{ email: '', password: '', role: Role.BASE }}
         onSubmit={submitFormRegistrationUser}
-        // validationSchema={formLoginSchema}
+        validationSchema={formRegistrationSchema}
       >
         <Form>
           <InputCost
@@ -64,7 +49,9 @@ export default function FormRegistrationUser() {
             <option value={Role.ADVANCED}>Продвинута</option>
           </InputCategory>
 
-          <button type="submit">Зареєструвати користувача</button>
+          <button type="submit" className="btn btn-success">
+            Зареєструвати користувача
+          </button>
         </Form>
       </Formik>
     </div>

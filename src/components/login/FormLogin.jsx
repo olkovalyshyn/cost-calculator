@@ -8,6 +8,7 @@ import {
   setUserInStore,
 } from '../../store/sliceUser.js';
 import { Role } from '../../helpers/enum.js';
+import { notifyNotFoundUser } from '../../helpers/notify';
 
 export default function FormLogin() {
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ export default function FormLogin() {
       console.log('### Сабміт успішний.  Треба подивитись в базі!!!', values);
       const response = await axios.post(`${APIURL}/api/login`, values);
       dispatch(setUserInStore(response.data[0]));
-      console.log('### role submitFormLogin', role);
 
       if (response.data[0].role === Role.ADMIN) {
         dispatch(setIsShowChoiceBtnsForAdmin(true));
@@ -32,27 +32,28 @@ export default function FormLogin() {
 
       resetForm();
     } catch (error) {
+      notifyNotFoundUser();
       console.log('### error in submitFormLogin!', error);
     }
   };
 
   return (
-    <div>
+    <div className="form-group">
       <h2>Форма входу:</h2>
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={submitFormLogin}
         // validationSchema={formLoginSchema}
       >
-        <Form>
+        <Form >
           <InputCost
-            label="Введіть електронну пошту:"
+            label="Введіть електронну пошту: "
             name="email"
             type="email"
           />
-          <InputCost label="Введіть пароль:" name="password" type="password" />
+          <InputCost label="Введіть пароль: " name="password" type="password" />
 
-          <button type="submit">Увійти</button>
+          <button type="submit" className="btn btn-success">Увійти</button>
         </Form>
       </Formik>
     </div>

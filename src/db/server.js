@@ -38,6 +38,7 @@ app.post('/api/add-cost', async (req, res) => {
       } else {
         console.log('### Дані були успішно записані в базу даних:', results);
       }
+      res.json(results);
     });
 
     closeDbConnection(conn);

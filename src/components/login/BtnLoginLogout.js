@@ -15,24 +15,23 @@ export const BtnLogin = () => {
     dispatch(setIsShowFormRegistrationUser(false));
     console.log('### I push Login');
   };
-
-  return <button onClick={handleSubmit}>Вхід</button>;
+  return (
+    <button className="btn btn-success" onClick={handleSubmit}>
+      Вхід
+    </button>
+  );
 };
 
 export function BtnLogout() {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(resetToInitialState());
-
-    // dispatch(setLoginBtnClick(false));
-    // dispatch(setUserInStore({}));
-    // dispatch(setIsShowFormRegistrationUser(false));
-    // dispatch(setIsShowChoiceBtnsForAdmin(false));
-    // dispatch(setIsAdmin(false));
-    console.log('### I push LOGOUT');
   };
-
-  return <button onClick={handleSubmit}>Вихід</button>;
+  return (
+    <button onClick={handleSubmit} className="btn btn-secondary">
+      Вихід
+    </button>
+  );
 }
 
 export function BtnAddUser() {
@@ -40,23 +39,22 @@ export function BtnAddUser() {
   const handleSubmit = () => {
     dispatch(setIsShowChoiceBtnsForAdmin(false));
     dispatch(setIsShowFormRegistrationUser(true));
-    // dispatch(setLoginBtnClick(false));
-    // dispatch(setUserInStore({}));
-    console.log('### I push BtnAddUser');
   };
-
-  return <button onClick={handleSubmit}>Додати користувача</button>;
+  return (
+    <button onClick={handleSubmit} className="btn btn-success m-1">
+      Додати користувача
+    </button>
+  );
 }
 
 export function BtnAddCosts() {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(setIsShowChoiceBtnsForAdmin(false));
-
-    // dispatch(setLoginBtnClick(false));
-    // dispatch(setUserInStore({}));
-    console.log('### I push BtnAddCosts');
   };
-
-  return <button onClick={handleSubmit}>Додати витрати</button>;
+  return (
+    <button onClick={handleSubmit} className="btn btn-success m-1">
+      Додати витрати
+    </button>
+  );
 }

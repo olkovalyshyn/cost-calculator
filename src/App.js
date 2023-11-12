@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux';
 // import { store } from './store/store.js';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import FormAddCost from './components/formInput/FormAddCost.jsx';
 import FormFindCostsPeriod from './components/formInput/FormFindCostsPeriod.js';
 import FormLogin from './components/login/FormLogin.jsx';
@@ -33,7 +35,8 @@ function App() {
   // console.log('### Role in APP', Role);
 
   return (
-    <div>
+    <div className="d-block p-2 bg-primary text-white col-4 mx-auto">
+      <ToastContainer />
       <FirstEnterIsAdmin />
       {role && isLoginBtnClick && <BtnLogout />}
       {isLoginBtnClick && !role && !isShowFormRegistrationUser && <FormLogin />}

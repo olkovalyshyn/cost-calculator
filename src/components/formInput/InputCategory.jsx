@@ -3,7 +3,7 @@ import {Field, useField, ErrorMessage} from "formik";
 const InputCategory = ({label, ...props}) => {
     const [field, meta] = useField(props);
     return (
-        <div>
+        <div >
             <label htmlFor={props.name}>{label}</label>
             <select {...field} {...props} />
             <ErrorMessage name={props.name}/>
