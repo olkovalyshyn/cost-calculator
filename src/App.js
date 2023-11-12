@@ -13,6 +13,7 @@ import { Role } from './helpers/enum.js';
 import Greeting from './components/header/Greeting.js';
 import FirstEnterIsAdmin from './components/FirstEnterIsAdmin/FirstEnterIsAdmin.js';
 import FormRegistrationAdmin from './components/login/FormRegistrationAdmin.jsx';
+import FormRegistrationUser from './components/login/FormRegistrationUser.jsx';
 
 function App() {
   const isAdmin = useSelector(state => state.data?.isAdmin);
@@ -24,32 +25,39 @@ function App() {
   const isShowChoiceBtnsForAdmin = useSelector(
     state => state.data?.isShowChoiceBtnsForAdmin,
   );
+  const isShowFormRegistrationUser = useSelector(
+    state => state.data?.IsShowFormRegistrationUser,
+  );
 
-  console.log('### role in APP', role);
-  console.log('### Role in APP', Role);
-  console.log('### Role.ADMIN in APP', Role.ADMIN);
+  // console.log('### role in APP', role);
+  // console.log('### Role in APP', Role);
 
   return (
     <div>
       <FirstEnterIsAdmin />
+      {role && isLoginBtnClick && <BtnLogout />}
+      {isLoginBtnClick && !role && !isShowFormRegistrationUser && <FormLogin />}
+      {role && isLoginBtnClick && <Greeting />}
+
       {!isAdmin && isShowFormRegistrationAdmin && <FormRegistrationAdmin />}
-      {isShowChoiceBtnsForAdmin && (
+      {isShowChoiceBtnsForAdmin && isAdmin && (
         <div>
           <BtnAddUser />
           <BtnAddCosts />
         </div>
       )}
-      {role && isLoginBtnClick && <Greeting />}
       {!role && !isLoginBtnClick && isAdmin && !isShowChoiceBtnsForAdmin && (
         <BtnLogin />
       )}
-      {role && isLoginBtnClick && <BtnLogout />}
-      {isLoginBtnClick && !role && <FormLogin />}
       {(role === Role.ADMIN || role === Role.BASE || role === Role.ADVANCED) &&
-        isLoginBtnClick && <FormAddCost />}
-      {(role === Role.ADMIN || role === Role.ADVANCED) && isLoginBtnClick && (
-        <FormFindCostsPeriod />
-      )}
+        isLoginBtnClick &&
+        !isShowChoiceBtnsForAdmin &&
+        !isShowFormRegistrationUser && <FormAddCost />}
+      {(role === Role.ADMIN || role === Role.ADVANCED) &&
+        isLoginBtnClick &&
+        !isShowChoiceBtnsForAdmin &&
+        !isShowFormRegistrationUser && <FormFindCostsPeriod />}
+      {isShowFormRegistrationUser && <FormRegistrationUser />}
     </div>
   );
 }

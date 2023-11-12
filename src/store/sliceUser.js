@@ -5,12 +5,16 @@ const initialState = {
   isAdmin: false,
   isShowFormRegistrationAdmin: true,
   isShowChoiceBtnsForAdmin: false,
+  IsShowFormRegistrationUser: false,
 };
 
 export const userSlice = createSlice({
   name: 'userData',
   initialState,
   reducers: {
+    resetToInitialState: state => {
+      return initialState;
+    },
     setUserInStore: (state, action) => {
       state.user = action.payload;
     },
@@ -26,14 +30,19 @@ export const userSlice = createSlice({
     setIsShowChoiceBtnsForAdmin: (state, action) => {
       state.isShowChoiceBtnsForAdmin = action.payload;
     },
+    setIsShowFormRegistrationUser: (state, action) => {
+      state.IsShowFormRegistrationUser = action.payload;
+    },
   },
 });
 console.log('### userSlice', userSlice);
 export const {
+  resetToInitialState,
   setUserInStore,
   setLoginBtnClick,
   setIsAdmin,
   setIsShowFormRegistrationAdmin,
   setIsShowChoiceBtnsForAdmin,
+  setIsShowFormRegistrationUser,
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;

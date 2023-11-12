@@ -23,10 +23,11 @@ export default function FormAddCost() {
 
   const submitFormAddCost = async (values, { resetForm }) => {
     try {
+       resetForm();
       console.log('### Сабміт успішний.  Треба внести в базу!!!', values);
       const response = await axios.post(`${APIURL}/api/add-cost`, values);
       console.log('### response.data in submitFormAddCost', response.data);
-      resetForm();
+     
     } catch (error) {
       console.log('### error in submitFormAddCost!', error);
     }
