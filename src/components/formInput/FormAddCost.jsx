@@ -4,13 +4,13 @@ import { object, string } from 'yup';
 import InputDate from './InputDate';
 import InputCost from './InputCost.jsx';
 import InputCategory from './InputCategory.jsx';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { APIURL } from '../../helpers/constants.js';
 import { notifySuccess, notifyFailure } from '../../helpers/notify';
 
 export default function FormAddCost() {
-  const storeFull = useSelector(state => state);
-  console.log('### storeFull in FormAddCost', storeFull);
+  // const storeFull = useSelector(state => state);
+  // console.log('### storeFull in FormAddCost', storeFull);
 
 
   const formAddCostSchema = object().shape({
@@ -37,7 +37,7 @@ export default function FormAddCost() {
   };
 
   return (
-    <div>
+    <div class="border rounded p-4">
       <h2>Додати витрату:</h2>
       <Formik
         initialValues={{ category: '', cost: '', date: new Date() }}

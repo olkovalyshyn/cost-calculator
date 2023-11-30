@@ -37,7 +37,7 @@ export default function FormFindCostsPeriod() {
   };
 
   return (
-    <div>
+    <div class="border rounded p-4">
       <h2>Отримати витрату за період:</h2>
       <Formik
         initialValues={{ dateFrom: '', dateTo: '' }}

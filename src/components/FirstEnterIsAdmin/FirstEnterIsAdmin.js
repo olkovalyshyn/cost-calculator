@@ -6,6 +6,7 @@ import { Role } from '../../helpers/enum.js';
 import {
   resetToInitialState,
   setIsAdmin,
+  setIsShowChoiceBtnsForAdmin,
   setUserInStore,
 } from '../../store/sliceUser.js';
 
@@ -27,6 +28,10 @@ export default function FirstEnterForAdmin() {
         );
         // dispatch(setUserInStore(response.data[0]));
         dispatch(setIsAdmin(response.data[0]?.role === Role.ADMIN));
+        // dispatch(
+        //   setIsShowChoiceBtnsForAdmin(response.data[0]?.role === Role.ADMIN),
+        // );
+
         console.log('!!response.data[0].role', !!response.data[0]?.role);
       } catch (error) {
         console.log('### error in FirstEnterForAdmin!', error);

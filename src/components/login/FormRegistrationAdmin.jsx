@@ -31,7 +31,7 @@ export default function FormRegistrationAdmin() {
       resetForm();
       dispatch(setIsShowFormRegistrationAdmin(false));
       dispatch(setIsShowChoiceBtnsForAdmin(true));
-            dispatch(setLoginBtnClick(true));
+      dispatch(setLoginBtnClick(true));
 
       notifySuccess();
     } catch (error) {
@@ -41,14 +41,14 @@ export default function FormRegistrationAdmin() {
   };
 
   return (
-    <div>
+    <div class="border rounded p-4">
       <h2>Форма реєстрації адміністратора:</h2>
       <Formik
         initialValues={{ email: '', password: '', role: Role.ADMIN }}
         onSubmit={submitFormRegistrationAdmin}
         // validationSchema={formLoginSchema}
       >
-        <Form>
+        <Form className="d-flex flex-column">
           <InputCost
             label="Введіть електронну пошту:"
             name="email"

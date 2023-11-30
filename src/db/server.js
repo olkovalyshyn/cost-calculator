@@ -19,10 +19,10 @@ app.listen(PORT, () => {
   console.log(`### Сервер запущено на порті ${PORT} `);
 });
 
-app.get('/', (req, res) =>
+app.get('/*', (req, res) =>
   res.sendFile(path.resolve(__dirname, 'build', 'index.html')),
 );
-
+console.log('###__dirname', __dirname);
 app.post('/api/add-cost', async (req, res) => {
   try {
     const { category, cost, date } = req.body;

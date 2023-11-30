@@ -15,11 +15,11 @@ const InputDate = props => {
 
   return (
     <>
-      <label htmlFor={props.name}>{props.label}</label>
-      <DatePicker
+      <label htmlFor={props.name}>{props.label} </label>
+      <DatePicker  class="form-control"
         {...field}
         selected={value}
-        onChange={date => setValue(date)}
+        onChange={date => setValue(date) }
       />
     </>
   );

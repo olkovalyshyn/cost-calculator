@@ -12,10 +12,10 @@ import { notifyNotFoundUser } from '../../helpers/notify';
 
 export default function FormLogin() {
   const dispatch = useDispatch();
-  const role = useSelector(state => state.data?.user?.role);
+  // const role = useSelector(state => state.data?.user?.role);
 
-  const storeFull = useSelector(state => state);
-  console.log('### storeFull', storeFull);
+  // const storeFull = useSelector(state => state);
+  // console.log('### storeFull', storeFull);
 
   const submitFormLogin = async (values, { resetForm }) => {
     try {
@@ -23,9 +23,10 @@ export default function FormLogin() {
       const response = await axios.post(`${APIURL}/api/login`, values);
       dispatch(setUserInStore(response.data[0]));
 
-      if (response.data[0].role === Role.ADMIN) {
-        dispatch(setIsShowChoiceBtnsForAdmin(true));
-      }
+      // if (response.data[0].role === Role.ADMIN) {
+      //   dispatch(setIsShowChoiceBtnsForAdmin(true));
+      // }
+      dispatch(setIsShowChoiceBtnsForAdmin(response.data[0].role === Role.ADMIN))
 
       console.log('### response in submitFormLogin', response);
       console.log('### response.data in submitFormLogin', response.data);
@@ -38,14 +39,14 @@ export default function FormLogin() {
   };
 
   return (
-    <div className="form-group">
+    <div class="border rounded p-4">
       <h2>Форма входу:</h2>
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={submitFormLogin}
         // validationSchema={formLoginSchema}
       >
-        <Form >
+        <Form className="d-flex flex-column">
           <InputCost
             label="Введіть електронну пошту: "
             name="email"

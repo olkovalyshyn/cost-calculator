@@ -16,9 +16,11 @@ export const BtnLogin = () => {
     console.log('### I push Login');
   };
   return (
-    <button className="btn btn-success" onClick={handleSubmit}>
-      Вхід
-    </button>
+    <div class="border rounded p-4 ">
+      <button className="btn btn-success" onClick={handleSubmit}>
+        Вхід
+      </button>
+    </div>
   );
 };
 

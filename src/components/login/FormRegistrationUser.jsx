@@ -6,6 +6,7 @@ import { Role } from '../../helpers/enum.js';
 import InputCategory from '../formInput/InputCategory.jsx';
 import { notifyFailure, notifySuccess } from '../../helpers/notify';
 import { object, string } from 'yup';
+import hashPassword from '../../helpers/sequrity.js';
 
 export default function FormRegistrationUser() {
   const formRegistrationSchema = object().shape({
@@ -29,14 +30,14 @@ export default function FormRegistrationUser() {
   };
 
   return (
-    <div>
+    <div class="border rounded p-4">
       <h2>Форма реєстрації користувача:</h2>
       <Formik
         initialValues={{ email: '', password: '', role: Role.BASE }}
         onSubmit={submitFormRegistrationUser}
         validationSchema={formRegistrationSchema}
       >
-        <Form>
+        <Form className="d-flex flex-column">
           <InputCost
             label="Введіть електронну пошту:"
             name="email"
@@ -49,7 +50,7 @@ export default function FormRegistrationUser() {
             <option value={Role.ADVANCED}>Продвинута</option>
           </InputCategory>
 
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className="btn btn-success m-2">
             Зареєструвати користувача
           </button>
         </Form>

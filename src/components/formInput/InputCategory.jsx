@@ -5,7 +5,7 @@ const InputCategory = ({label, ...props}) => {
     return (
         <div >
             <label htmlFor={props.name}>{label}</label>
-            <select {...field} {...props} />
+            <select {...field} {...props} class="form-control"/>
             <ErrorMessage name={props.name}/>
         </div>
     );
